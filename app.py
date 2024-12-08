@@ -89,6 +89,17 @@ def generate_map(chosen_airports):
     preorderWalk(start_airport, visited, mst_adj_list, path)
     path.append(start_airport)  # Complete Eulerian cycle
 
+    # Calculate total distance
+    total_distance = 0
+    for i in range(len(path) - 1):
+        start_index = airport_names.index(path[i])
+        end_index = airport_names.index(path[i + 1])
+        start_coords = airport_locations[start_index]
+        end_coords = airport_locations[end_index]
+        total_distance += geodesic(start_coords, end_coords).km
+
+    total_distance = f"{total_distance:.2f}"
+
     # Generate the map
     m_path = folium.Map(location=[airport_locations[0][0], airport_locations[0][1]], zoom_start=3)
     for i in range(len(path) - 1):
@@ -103,17 +114,18 @@ def generate_map(chosen_airports):
             folium.Marker(location=end_coords, popup=f"{path[i+1]}").add_to(m_path)
     m_path.save('static/m_path_map.html')
 
-    return path
+    return path, total_distance
 
 # Route to display the map
 @app.route('/', methods=['GET', 'POST'])
 def index():
     path = []
+    total_distance = "0.00"
     if request.method == 'POST':
         chosen_airports = request.form.getlist('airports')
         if chosen_airports:
-            path = generate_map(chosen_airports)
-    return render_template('index.html', airports=airports, countries=countries, path=path)
+            path, total_distance = generate_map(chosen_airports)
+    return render_template('index.html', airports=airports, countries=countries, path=path, total_distance=total_distance)
 
 if __name__ == "__main__":
     app.run(debug=True)

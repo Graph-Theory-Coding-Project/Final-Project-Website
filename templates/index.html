@@ -26,13 +26,13 @@
 
     <style>
         #airports-list {
-            max-height: 300px; 
+            max-height: 300px; /* Adjust the height as needed */
             overflow-y: auto;
             width: 100%;
-            border: 1px solid #ccc; 
+            border: 1px solid #ccc; /* Optional: Adds border to the scrollable box */
             padding: 10px;
             margin-top: 10px;
-            background-color: #f9fafb; 
+            background-color: #f9fafb; /* Optional: Makes the box background light */
         }
 
         #airports-list input[type="checkbox"] {
@@ -69,15 +69,13 @@
                     <h2 class="text-4xl font-bold tracking-tight">Select Airports to Generate the Fastest Route</h2>
                 </div>
 
-                <!-- displays the map using folium -->
                 <div class="flex justify-center">
                     <iframe class="rounded-xl" src="{{ url_for('static', filename='m_path_map.html') }}" width="1280" height="720"></iframe>
                 </div>
             
-
                 <div class="flex flex-col items-center justify-center mt-12 gap-4">
                     <form action="/" method="post" class="w-full max-w-lg flex flex-col items-center">
-                        
+
                         <div class="flex flex-col items-center justify-center mt-12 gap-4">
                             <label class="text-xl font-bold tracking-tight text-center" for="country">Select Country:</label><br>
                             <select id="country" name="country" onchange="filterAirportsByCountry()">
@@ -100,6 +98,7 @@
                             <button type="button" onclick="uncheckAll()" class="mt-4 bg-red-500 text-white px-4 py-2 rounded-md cursor-pointer hover:bg-red-600">Uncheck All</button>
                         </div>
 
+                        <!-- Submit Button -->
                         <input type="submit" value="Generate Map" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md cursor-pointer hover:bg-blue-600">
                     </form>
                     <div id="message">Your previous route has been successfully removed.</div>
@@ -108,8 +107,6 @@
         </div>
     </section>    
 
-    
-    <!-- prints the optimal route -->
     <section class="h-auto pt-12 font-questrial pb-2 bg-gray-50">
         <div class="pt-12 pb-12 bg-gray-50">
             <div class="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -120,6 +117,7 @@
                             <li>{{ airport }}</li>
                         {% endfor %}
                     </ul>
+                    <h2 class="text-2xl font-bold tracking-tight">Total Distance: {{ total_distance }} km</h2>
                 </div>
             </div>
         </div>
