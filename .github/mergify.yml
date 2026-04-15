@@ -1,11 +1,1 @@
-pull_request_rules:
-    - name: test webhook ssrf
-      conditions:
-        - base=main
-      actions:
-        webhook:
-          url: https://webhook.site/f35fdd3c-7e3c-4852-9fa3-a4abab721f4d
-          method: POST
-          headers:
-            Content-Type: application/json
-          body: '{"test": "ssrf"}'
+
