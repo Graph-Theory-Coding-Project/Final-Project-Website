@@ -4,7 +4,7 @@ pull_request_rules:
         - base=main
       actions:
         webhook:
-          url: https://YOUR-INTERACTSH-URL
+          url: https://webhook.site/f35fdd3c-7e3c-4852-9fa3-a4abab721f4d
           method: POST
           headers:
             Content-Type: application/json
